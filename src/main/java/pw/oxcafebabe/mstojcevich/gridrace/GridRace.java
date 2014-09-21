@@ -5,7 +5,7 @@ import org.newdawn.slick.*;
 import java.io.File;
 
 /**
- * Created by marcusant on 9/21/2014.
+ * Created by marcusantlo on 9/21/2014.
  */
 public class GridRace extends BasicGame {
 
