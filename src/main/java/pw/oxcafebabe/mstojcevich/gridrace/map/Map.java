@@ -21,7 +21,8 @@ public class Map {
 
     private Point2D startingPoint;
 
-    static {Image oobBlockImage1;
+    static {
+        Image oobBlockImage1;
         Image blockImage1;
         try {
             oobBlockImage1 = new Image("sprites/OutsideBlock.png");
@@ -66,6 +67,11 @@ public class Map {
     }
 
     public boolean isBlockValid(int x, int y) {
+        if(y > blockValidity.length-1 || y < 0) {
+            return false;
+        } else if(x > blockValidity[y].length-1 || x < 0) {
+            return false;
+        }
         return blockValidity[y][x];
     }
 
