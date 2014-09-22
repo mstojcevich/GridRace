@@ -14,6 +14,7 @@ public class Player {
 
     private Point2D position, targetPoint;
     private int velocityUp, velocityOver;
+    private Map map;
 
     private static final Image playerImage;
 
@@ -28,13 +29,14 @@ public class Player {
         playerImage = playerImageTemp;
     }
 
-    public Player(Point2D startPosition) {
+    public Player(Point2D startPosition, Map map) {
+        this.map = map;
         this.position = startPosition;
         this.targetPoint = new Point((int)this.position.getX() + this.velocityOver, (int)this.position.getY() + this.velocityUp);
     }
 
     public void render(Graphics g) {
-        g.drawImage(playerImage, ((int)position.getX())*16, ((int)position.getY())*16);
+        g.drawImage(playerImage, ((int)position.getX())*map.getTileWidth(), ((int)position.getY())*map.getTileHeight());
     }
 
     public void offsetPosition(int deltaX, int deltaY) {
@@ -69,6 +71,10 @@ public class Player {
 
     public int getVelocityOver() {
         return this.velocityOver;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 
 }

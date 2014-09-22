@@ -201,9 +201,10 @@ public class GridRaceGame extends BasicGameState {
     }
 
     private void newGame(Map map) throws SlickException {
-        if(player == null)player = new Player(new Point(0, 0));
+        if(player == null)player = new Player(new Point(0, 0), map);
         currentMap = map;
         player.setPosition((Point2D)currentMap.getStartingPoint().clone());
+        player.setMap(map);
         player.resetVelocity();
         this.renderOptionsToImage(optionsImage);
         moveCount = 0;
