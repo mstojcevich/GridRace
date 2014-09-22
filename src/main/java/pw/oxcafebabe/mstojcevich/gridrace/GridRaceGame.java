@@ -44,8 +44,11 @@ public class GridRaceGame extends BasicGameState {
     @Override
     public void init(GameContainer gameContainer, StateBasedGame game) throws SlickException {
         oobBlockImage = new Image("sprites/OOBBlock.png");
+        oobBlockImage.setFilter(Image.FILTER_NEAREST);
         availableBlockImage = new Image("sprites/AvailableBlock.png");
+        availableBlockImage.setFilter(Image.FILTER_NEAREST);
         youLose = new Image("sprites/YouLose.png");
+        youLose.setFilter(Image.FILTER_NEAREST);
 
         try {
             this.newGame(new Map(this.getClass().getResourceAsStream("/maps/map" + mapNumber)));
@@ -206,6 +209,7 @@ public class GridRaceGame extends BasicGameState {
         if(player == null)player = new Player(new Point(0, 0), map);
         currentMap = map;
         optionsImage = new Image(currentMap.getTileWidth()*3, currentMap.getTileHeight()*3);
+        optionsImage.setFilter(Image.FILTER_NEAREST);
         player.setPosition((Point2D)currentMap.getStartingPoint().clone());
         player.setMap(map);
         player.resetVelocity();

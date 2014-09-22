@@ -21,7 +21,8 @@ public class Player {
     static {
         org.newdawn.slick.Image playerImageTemp;
         try {
-            playerImageTemp = new org.newdawn.slick.Image("sprites/Player.png");
+            playerImageTemp = new Image("sprites/Player.png");
+            playerImageTemp.setFilter(Image.FILTER_NEAREST)
         } catch (SlickException e) {
             playerImageTemp = null;
             e.printStackTrace();

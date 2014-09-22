@@ -32,6 +32,7 @@ public class Map {
         Image blockImage1;
         try {
             oobBlockImage1 = new Image("sprites/OutsideBlock.png");
+            oobBlockImage1.setFilter(Image.FILTER_NEAREST);
         } catch (SlickException e) {
             oobBlockImage1 = null;
             e.printStackTrace();
@@ -39,6 +40,7 @@ public class Map {
         oobBlockImage = oobBlockImage1;
         try {
             blockImage1 = new Image("sprites/Block.png");
+            blockImage1.setFilter(Image.FILTER_NEAREST);
         } catch (SlickException e) {
             blockImage1 = null;
             e.printStackTrace();
@@ -83,6 +85,7 @@ public class Map {
         tileHeight = (int)Math.floor(GridRace.HEIGHT / this.mapHeight);
 
         mapImage = new Image(this.mapWidth * 16, this.mapHeight * 16);
+        mapImage.setFilter(Image.FILTER_NEAREST);
         renderMapToImage(mapImage);
     }
 
