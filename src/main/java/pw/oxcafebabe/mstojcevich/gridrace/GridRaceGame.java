@@ -122,7 +122,6 @@ public class GridRaceGame extends BasicGameState {
         }
         int numerator = longest >> 1 ;
         for (int i=0;i<=longest;i++) {
-            System.out.println("checking " + startX + ", " + startY);
             if(!currentMap.isBlockValid(startX, startY)) {
                 return true;
             }
