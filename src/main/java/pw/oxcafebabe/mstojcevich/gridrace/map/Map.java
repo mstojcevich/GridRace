@@ -16,6 +16,7 @@ import java.util.List;
 public class Map {
 
     private final Boolean[][] blockValidity;
+    private final Boolean[][] winList;
     private static final Image oobBlockImage;
     private static final Image blockImage;
 
@@ -45,22 +46,31 @@ public class Map {
     public Map(InputStream mapFileStream) throws IOException, SlickException {
         BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapFileStream));
         List<Boolean[]> validityList = new ArrayList<Boolean[]>();
+        List<Boolean[]> finishList = new ArrayList<Boolean[]>();
         String currentLine;
         int x = 0, y = 0;
         while((currentLine = mapReader.readLine()) != null) {
             List<Boolean> currentLineValidity = new ArrayList<Boolean>();
+            List<Boolean> currentLineFinish = new ArrayList<Boolean>();
             for(char c : currentLine.toCharArray()) {
                 if(Character.toLowerCase(c) == 's') {
                     this.startingPoint = new Point(x, y);
                 }
-                currentLineValidity.add(c == '1' ? true : false);
+                if(Character.toLowerCase(c) == 'f') {
+                    currentLineFinish.add(true);
+                } else {
+                    currentLineFinish.add(false);
+                }
+                currentLineValidity.add(c == '1' || c == 'f' ? true : false);
                 x+=1;
             }
             validityList.add(currentLineValidity.toArray(new Boolean[]{}));
+            finishList.add(currentLineFinish.toArray(new Boolean[]{}));
             x=0;
             y+=1;
         }
         blockValidity = validityList.toArray(new Boolean[][]{});
+        winList = finishList.toArray(new Boolean[][]{});
 
         mapImage = new Image(640, 480);
         renderMapToImage(mapImage);
@@ -73,6 +83,15 @@ public class Map {
             return false;
         }
         return blockValidity[y][x];
+    }
+
+    public boolean isBlockWin(int x, int y) {
+        if(y > winList.length-1 || y < 0) {
+            return false;
+        } else if(x > winList[y].length-1 || x < 0) {
+            return false;
+        }
+        return winList[y][x];
     }
 
     private void renderMapToImage(Image target) throws SlickException {
