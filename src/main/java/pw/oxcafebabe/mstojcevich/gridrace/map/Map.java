@@ -112,10 +112,10 @@ public class Map {
         for(Boolean[] booleans : blockValidity) {
             for(boolean blockValid : booleans) {
                 g.drawImage(blockValid ? blockImage : oobBlockImage, x, y);
-                x += this.getTileWidth();
+                x += 16;
             }
             x = 0;
-            y += this.getTileHeight();
+            y += 16;
         }
 
         g.flush();
