@@ -69,7 +69,7 @@ public class GridRaceGame extends BasicGameState {
                 graphics.drawImage(youLose, 0, 0);
             }
             graphics.drawString("Moves: " + moveCount, 10, 30);
-            graphics.drawString("High score: " + hsMovecount, 10, 30);
+            graphics.drawString("High score: " + hsMovecount, 10, 50);
         } else {
             //TODO render main menu
             graphics.drawString("Failed to load map", 20, 50);
