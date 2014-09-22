@@ -86,10 +86,12 @@ public class GridRaceGame extends BasicGameState {
         int validPoints = 0;
         for(int y = 0; y < 3; y++) {
             for(int x = 0; x < 3; x++) {
-                boolean blockValid = currentMap.isBlockValid(targetPointX - 1 + x, targetPointY - 1 + y);
+                boolean blockValid = !this.isPathBlocked((int)player.getPosition().getX(), (int)player.getPosition().getY(),
+                        targetPointX - 1 + x, targetPointY - 1 + y) && currentMap.isBlockValid(targetPointX - 1 + x, targetPointY - 1 + y);
                 g.drawImage(blockValid
                         ? availableBlockImage : oobBlockImage, x*16, y*16);
-                if(blockValid && !(targetPointX - 1 + x == player.getPosition().getX() && targetPointY - 1 + y == player.getPosition().getY())) {
+                if(blockValid && !(targetPointX - 1 + x == player.getPosition().getX() && targetPointY - 1 + y
+                        == player.getPosition().getY())) {
                     validPoints++;
                 }
             }
@@ -98,6 +100,44 @@ public class GridRaceGame extends BasicGameState {
         this.lost = validPoints <= 0;
 
         g.flush();
+    }
+
+    /**
+     * Credits to tech-algorithm.com for the bresenham implementation
+     */
+    private boolean isPathBlocked(int startX, int startY, int targetX, int targetY) {
+        int w = targetX - startX;
+        int h = targetY - startY;
+        int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
+        if (w<0) dx1 = -1 ; else if (w>0) dx1 = 1 ;
+        if (h<0) dy1 = -1 ; else if (h>0) dy1 = 1 ;
+        if (w<0) dx2 = -1 ; else if (w>0) dx2 = 1 ;
+        int longest = Math.abs(w) ;
+        int shortest = Math.abs(h) ;
+        if (!(longest>shortest)) {
+            longest = Math.abs(h) ;
+            shortest = Math.abs(w) ;
+            if (h<0) dy2 = -1 ; else if (h>0) dy2 = 1 ;
+            dx2 = 0 ;
+        }
+        int numerator = longest >> 1 ;
+        for (int i=0;i<=longest;i++) {
+            System.out.println("checking " + startX + ", " + startY);
+            if(!currentMap.isBlockValid(startX, startY)) {
+                return true;
+            }
+            numerator += shortest ;
+            if (!(numerator<longest)) {
+                numerator -= longest ;
+                startX += dx1 ;
+                startY += dy1 ;
+            } else {
+                startX += dx2 ;
+                startY += dy2 ;
+            }
+        }
+
+        return false;
     }
 
     private void renderOptions(Graphics g) {

@@ -63,4 +63,12 @@ public class Player {
         return this.targetPoint;
     }
 
+    public int getVelocityUp() {
+        return this.velocityUp;
+    }
+
+    public int getVelocityOver() {
+        return this.velocityOver;
+    }
+
 }

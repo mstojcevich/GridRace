@@ -61,7 +61,7 @@ public class Map {
                 } else {
                     currentLineFinish.add(false);
                 }
-                currentLineValidity.add(c == '1' || c == 'f' ? true : false);
+                currentLineValidity.add(c == '1' || c == 'f' || c == 's' ? true : false);
                 x+=1;
             }
             validityList.add(currentLineValidity.toArray(new Boolean[]{}));
