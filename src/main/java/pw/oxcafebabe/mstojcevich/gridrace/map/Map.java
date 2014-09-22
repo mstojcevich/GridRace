@@ -82,7 +82,7 @@ public class Map {
         tileWidth = (int)Math.floor(GridRace.WIDTH / this.mapWidth);
         tileHeight = (int)Math.floor(GridRace.HEIGHT / this.mapHeight);
 
-        mapImage = new Image(GridRace.WIDTH, GridRace.HEIGHT);
+        mapImage = new Image(this.mapWidth * 16, this.mapHeight * 16);
         renderMapToImage(mapImage);
     }
 
@@ -122,7 +122,7 @@ public class Map {
     }
 
     public void render(Graphics g) {
-        g.drawImage(this.mapImage, 0, 0);
+        g.drawImage(this.mapImage, 0, 0, GridRace.WIDTH, GridRace.HEIGHT, 0, 0, this.mapWidth * 16, this.mapHeight * 16);
     }
 
     public Point2D getStartingPoint() {
