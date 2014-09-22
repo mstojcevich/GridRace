@@ -11,6 +11,8 @@ release.properties
 .idea/
 *.iml
 *.iws
+workspace.xml
+tasks.xml
 
 # OSX
 .DS_Store
@@ -19,3 +21,5 @@ release.properties
 .classpath
 .project
 .settings/
+
+run/
