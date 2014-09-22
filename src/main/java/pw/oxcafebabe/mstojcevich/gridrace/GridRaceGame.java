@@ -169,7 +169,9 @@ public class GridRaceGame extends BasicGameState {
                 if (glY < targetPointY + 32 && y > targetPointY - 16) {
                     int newX = (int) Math.floor(x / 16);
                     int newY = (int) Math.floor(glY / 16);
-                    if (currentMap.isBlockValid(newX, newY) && player.getPosition().distance(newX, newY) > 0) {
+                    boolean blockValid = !this.isPathBlocked((int)player.getPosition().getX(), (int)player.getPosition().getY(),
+                            newX, newY) && currentMap.isBlockValid(newX, newY);
+                    if (blockValid && player.getPosition().distance(newX, newY) > 0) {
                         player.offsetPosition(newX - (int) player.getPosition().getX(), newY - (int) player.getPosition().getY());
                         moveCount++;
                     }
