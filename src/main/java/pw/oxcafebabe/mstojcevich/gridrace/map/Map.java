@@ -3,6 +3,7 @@ package pw.oxcafebabe.mstojcevich.gridrace.map;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import pw.oxcafebabe.mstojcevich.gridrace.GridRace;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -19,6 +20,10 @@ public class Map {
     private final Boolean[][] winList;
     private static final Image oobBlockImage;
     private static final Image blockImage;
+
+    private int mapWidth;
+    private int mapHeight;
+    private final int tileWidth, tileHeight;
 
     private Point2D startingPoint;
 
@@ -66,13 +71,18 @@ public class Map {
             }
             validityList.add(currentLineValidity.toArray(new Boolean[]{}));
             finishList.add(currentLineFinish.toArray(new Boolean[]{}));
+            mapWidth = Math.max(x, mapWidth);
             x=0;
             y+=1;
         }
+        mapHeight = y;
         blockValidity = validityList.toArray(new Boolean[][]{});
         winList = finishList.toArray(new Boolean[][]{});
 
-        mapImage = new Image(640, 480);
+        tileWidth = (int)Math.floor(GridRace.WIDTH / this.mapWidth);
+        tileHeight = (int)Math.floor(GridRace.HEIGHT / this.mapHeight);
+
+        mapImage = new Image(GridRace.WIDTH, GridRace.HEIGHT);
         renderMapToImage(mapImage);
     }
 
@@ -102,10 +112,10 @@ public class Map {
         for(Boolean[] booleans : blockValidity) {
             for(boolean blockValid : booleans) {
                 g.drawImage(blockValid ? blockImage : oobBlockImage, x, y);
-                x += 16;
+                x += this.getTileWidth();
             }
             x = 0;
-            y += 16;
+            y += this.getTileHeight();
         }
 
         g.flush();
@@ -117,6 +127,14 @@ public class Map {
 
     public Point2D getStartingPoint() {
         return this.startingPoint;
+    }
+
+    public int getTileWidth() {
+        return this.tileWidth;
+    }
+
+    public int getTileHeight() {
+        return this.tileHeight;
     }
 
 }

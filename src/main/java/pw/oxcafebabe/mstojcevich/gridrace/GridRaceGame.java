@@ -89,7 +89,7 @@ public class GridRaceGame extends BasicGameState {
                 boolean blockValid = !this.isPathBlocked((int)player.getPosition().getX(), (int)player.getPosition().getY(),
                         targetPointX - 1 + x, targetPointY - 1 + y) && currentMap.isBlockValid(targetPointX - 1 + x, targetPointY - 1 + y);
                 g.drawImage(blockValid
-                        ? availableBlockImage : oobBlockImage, x*16, y*16);
+                        ? availableBlockImage : oobBlockImage, x*currentMap.getTileWidth(), y*currentMap.getTileHeight());
                 if(blockValid && !(targetPointX - 1 + x == player.getPosition().getX() && targetPointY - 1 + y
                         == player.getPosition().getY())) {
                     validPoints++;
@@ -140,10 +140,10 @@ public class GridRaceGame extends BasicGameState {
     }
 
     private void renderOptions(Graphics g) {
-        int targetPointX = (int)player.getTargetPoint().getX()*16;
-        int targetPointY = (int)player.getTargetPoint().getY()*16;
+        int targetPointX = (int)player.getTargetPoint().getX()*currentMap.getTileWidth();
+        int targetPointY = (int)player.getTargetPoint().getY()*currentMap.getTileHeight();
 
-        g.drawImage(this.optionsImage, targetPointX - 16, targetPointY - 16);
+        g.drawImage(this.optionsImage, targetPointX - currentMap.getTileWidth(), targetPointY - currentMap.getTileHeight());
     }
 
     @Override
@@ -163,12 +163,12 @@ public class GridRaceGame extends BasicGameState {
         } else {
             int glY = y;
 
-            int targetPointX = (int) player.getTargetPoint().getX() * 16;
-            int targetPointY = (int) player.getTargetPoint().getY() * 16;
-            if (x < targetPointX + 32 && x > targetPointX - 16) {
-                if (glY < targetPointY + 32 && y > targetPointY - 16) {
-                    int newX = (int) Math.floor(x / 16);
-                    int newY = (int) Math.floor(glY / 16);
+            int targetPointX = (int) player.getTargetPoint().getX() * currentMap.getTileWidth();
+            int targetPointY = (int) player.getTargetPoint().getY() * currentMap.getTileHeight();
+            if (x < targetPointX + currentMap.getTileWidth()*2 && x > targetPointX - currentMap.getTileWidth()) {
+                if (glY < targetPointY + currentMap.getTileHeight()*2 && y > targetPointY - currentMap.getTileHeight()) {
+                    int newX = (int) Math.floor(x / currentMap.getTileWidth());
+                    int newY = (int) Math.floor(glY / currentMap.getTileHeight());
                     boolean blockValid = !this.isPathBlocked((int)player.getPosition().getX(), (int)player.getPosition().getY(),
                             newX, newY) && currentMap.isBlockValid(newX, newY);
                     if (blockValid && player.getPosition().distance(newX, newY) > 0) {
