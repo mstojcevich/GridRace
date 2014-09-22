@@ -109,6 +109,11 @@ public class GridRaceGame extends BasicGameState {
 
     @Override
     public void mousePressed(int button, int x, int y) {
+        if(button == 2) {
+            this.onWin();
+            return;
+        }
+
         if(lost) {
             this.lost = false;
             try {
@@ -147,7 +152,7 @@ public class GridRaceGame extends BasicGameState {
 
         this.mapNumber++;
         try {
-            this.newGame(new Map(this.getClass().getResourceAsStream("maps/map" + mapNumber)));
+            this.newGame(new Map(this.getClass().getResourceAsStream("/maps/map" + mapNumber)));
         } catch (Exception e) {
             e.printStackTrace();
             this.currentMap = null;
