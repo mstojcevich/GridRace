@@ -43,7 +43,6 @@ public class GridRaceGame extends BasicGameState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame game) throws SlickException {
-        optionsImage = new Image(48, 48);
         oobBlockImage = new Image("sprites/OOBBlock.png");
         availableBlockImage = new Image("sprites/AvailableBlock.png");
         youLose = new Image("sprites/YouLose.png");
@@ -89,7 +88,10 @@ public class GridRaceGame extends BasicGameState {
                 boolean blockValid = !this.isPathBlocked((int)player.getPosition().getX(), (int)player.getPosition().getY(),
                         targetPointX - 1 + x, targetPointY - 1 + y) && currentMap.isBlockValid(targetPointX - 1 + x, targetPointY - 1 + y);
                 g.drawImage(blockValid
-                        ? availableBlockImage : oobBlockImage, x*currentMap.getTileWidth(), y*currentMap.getTileHeight());
+                        ? availableBlockImage : oobBlockImage, x*currentMap.getTileWidth(), y*currentMap.getTileHeight(),
+                        x*currentMap.getTileWidth()+currentMap.getTileWidth(),
+                        y*currentMap.getTileHeight()+currentMap.getTileHeight(),
+                        0, 0, 16, 16);
                 if(blockValid && !(targetPointX - 1 + x == player.getPosition().getX() && targetPointY - 1 + y
                         == player.getPosition().getY())) {
                     validPoints++;
@@ -203,6 +205,7 @@ public class GridRaceGame extends BasicGameState {
     private void newGame(Map map) throws SlickException {
         if(player == null)player = new Player(new Point(0, 0), map);
         currentMap = map;
+        optionsImage = new Image(currentMap.getTileWidth()*3, currentMap.getTileHeight()*3);
         player.setPosition((Point2D)currentMap.getStartingPoint().clone());
         player.setMap(map);
         player.resetVelocity();

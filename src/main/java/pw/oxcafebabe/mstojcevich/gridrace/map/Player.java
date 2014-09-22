@@ -36,7 +36,10 @@ public class Player {
     }
 
     public void render(Graphics g) {
-        g.drawImage(playerImage, ((int)position.getX())*map.getTileWidth(), ((int)position.getY())*map.getTileHeight());
+        g.drawImage(playerImage, ((int)position.getX())*map.getTileWidth(), ((int)position.getY())*map.getTileHeight(),
+                ((int)position.getX())*map.getTileWidth()+map.getTileWidth(),
+                ((int)position.getY())*map.getTileHeight()+map.getTileHeight(),
+                0, 0, 16, 16);
     }
 
     public void offsetPosition(int deltaX, int deltaY) {
