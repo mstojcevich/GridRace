@@ -22,7 +22,7 @@ public class Player {
         org.newdawn.slick.Image playerImageTemp;
         try {
             playerImageTemp = new Image("sprites/Player.png");
-            playerImageTemp.setFilter(Image.FILTER_NEAREST)
+            playerImageTemp.setFilter(Image.FILTER_NEAREST);
         } catch (SlickException e) {
             playerImageTemp = null;
             e.printStackTrace();
