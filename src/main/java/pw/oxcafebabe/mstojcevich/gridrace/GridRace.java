@@ -93,7 +93,7 @@ public class GridRace extends BasicGame {
                 }
             }
         }
-        
+
         this.lost = validPoints <= 0;
 
         g.flush();
@@ -142,7 +142,6 @@ public class GridRace extends BasicGame {
         if(player == null)player = new Player(new Point(0, 0));
         currentMap = map;
         player.setPosition((Point2D)currentMap.getStartingPoint().clone());
-        System.out.println(currentMap.getStartingPoint().getX());
         player.resetVelocity();
         this.renderOptionsToImage(optionsImage);
         moveCount = 0;
