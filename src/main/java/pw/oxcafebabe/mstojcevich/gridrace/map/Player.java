@@ -41,11 +41,16 @@ public class Player {
         this.velocityOver = deltaX;
         this.velocityUp = deltaY;
         this.position.setLocation(this.position.getX() + deltaX, this.position.getY() + deltaY);
+        this.targetPoint = new Point((int)this.position.getX() + this.velocityOver, (int)this.position.getY() + this.velocityUp);
     }
 
     public void setPosition(Point2D position) {
         this.position = position;
         this.targetPoint = new Point((int)this.position.getX() + this.velocityOver, (int)this.position.getY() + this.velocityUp);
+    }
+
+    public Point2D getPosition() {
+        return this.position;
     }
 
     public void resetVelocity() {
@@ -54,6 +59,7 @@ public class Player {
     }
 
     public Point2D getTargetPoint() {
+        this.targetPoint = new Point((int)this.position.getX() + this.velocityOver, (int)this.position.getY() + this.velocityUp);
         return this.targetPoint;
     }
 
