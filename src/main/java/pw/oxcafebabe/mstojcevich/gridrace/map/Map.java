@@ -20,6 +20,7 @@ public class Map {
     private final Boolean[][] winList;
     private static final Image oobBlockImage;
     private static final Image blockImage;
+    private static final Image finishBlockImage;
 
     private int mapWidth;
     private int mapHeight;
@@ -30,6 +31,7 @@ public class Map {
     static {
         Image oobBlockImage1;
         Image blockImage1;
+        Image finishBlockImage1;
         try {
             oobBlockImage1 = new Image("sprites/OutsideBlock.png");
             oobBlockImage1.setFilter(Image.FILTER_NEAREST);
@@ -46,6 +48,14 @@ public class Map {
             e.printStackTrace();
         }
         blockImage = blockImage1;
+        try {
+            finishBlockImage1 = new Image("sprites/FinishBlock.png");
+            finishBlockImage1.setFilter(Image.FILTER_NEAREST);
+        } catch (SlickException e) {
+            finishBlockImage1 = null;
+            e.printStackTrace();
+        }
+        finishBlockImage = finishBlockImage1;
     }
 
     private Image mapImage;
@@ -114,7 +124,8 @@ public class Map {
         int y = 0;
         for(Boolean[] booleans : blockValidity) {
             for(boolean blockValid : booleans) {
-                g.drawImage(blockValid ? blockImage : oobBlockImage, x, y);
+                g.drawImage(this.isBlockWin(x/16, y/16) ? finishBlockImage
+                        : blockValid ? blockImage : oobBlockImage, x, y);
                 x += 16;
             }
             x = 0;
