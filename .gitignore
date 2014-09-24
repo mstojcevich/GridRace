@@ -22,4 +22,7 @@ tasks.xml
 .project
 .settings/
 
+# Gradle
+build/
+
 run/
